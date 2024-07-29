@@ -7,7 +7,7 @@ function EssayForm() {
   const [topicSentences, setTopicSentences] = useState('');
   const [evidence, setEvidence] = useState('');
   const [analysis, setAnalysis] = useState('');
-  const [essay, setEssay] = useState('');
+  const [prompt, setPrompt] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,8 +18,9 @@ function EssayForm() {
         topicSentences,
         evidence,
         analysis,
+        prompt,
       });
-      setEssay(response.data.essay);
+      console.log(response.data); // Print data to console for now
     } catch (error) {
       console.error('Error generating essay:', error);
     }
@@ -68,14 +69,16 @@ function EssayForm() {
             required
           />
         </div>
-        <button type="submit">Generate Essay</button>
-      </form>
-      {essay && (
         <div>
-          <h2>Generated Essay:</h2>
-          <p>{essay}</p>
+          <label>Prompt:</label>
+          <textarea
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            required
+          />
         </div>
-      )}
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }
